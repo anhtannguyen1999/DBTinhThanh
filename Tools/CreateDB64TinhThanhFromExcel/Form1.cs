@@ -45,10 +45,10 @@ namespace CreateDB64TinhThanhFromExcel
             string preMaHuyen = "";
             string preMaXa = "";
 
-            //Viet vao file tinh.json
+            //Viet vao file tinh//.json
             string firstContent = "{\"listItem\":[";
             string lastContent = "]}";
-            writeToFileWithUTF8("tinh.json",firstContent);
+            writeToFileWithUTF8("tinh",firstContent);
             //Duyet het tat ca cac row
             for (int i = 2; i <= rowCount; i++)
             {
@@ -61,12 +61,12 @@ namespace CreateDB64TinhThanhFromExcel
                     {
                         string jsonTinh = "{\"id\": \"" + xlRange.Cells[i, 2].Value2.ToString() 
                             + "\", \"title\":\""+xlRange.Cells[i,1].Value2.ToString()+"\"}";
-                        //Append to file tinh.json
+                        //Append to file tinh//.json
                         //MessageBox.Show(jsonTinh);
                         if(preMaTinh=="")//Neu la tinh dau tien
-                            writeToFileWithUTF8("tinh.json",jsonTinh);
+                            writeToFileWithUTF8("tinh",jsonTinh);
                         else
-                            writeToFileWithUTF8("tinh.json",","+jsonTinh);
+                            writeToFileWithUTF8("tinh",","+jsonTinh);
                         
                     }
 
@@ -80,22 +80,22 @@ namespace CreateDB64TinhThanhFromExcel
                         }
                         //Dong file huyen cu
                         if (preMaTinh != xlRange.Cells[i, 2].Value2.ToString())
-                            writeToFileWithUTF8(@"QuanHuyen/" + preMaTinh + ".json",lastContent);
+                            writeToFileWithUTF8(@"QuanHuyen/" + preMaTinh + "",lastContent);
 
 
                         string jsonHuyen = "{\"id\": \"" + xlRange.Cells[i, 4].Value2.ToString()
                             + "\", \"title\":\"" + xlRange.Cells[i, 3].Value2.ToString() + "\", \"idTinh\":\""+
                             xlRange.Cells[i, 2].Value2.ToString() + "\"}";
-                        //Append to file QuanHuyen/xlRange.Cells[i, 2].Value2.ToString().json
+                        //Append to file QuanHuyen/xlRange.Cells[i, 2].Value2.ToString()
                         //MessageBox.Show(jsonHuyen);
                         if (preMaTinh != xlRange.Cells[i, 2].Value2.ToString())//Neu la huyen dau tien cua tinh
                         {
-                            string path = @"QuanHuyen/" + xlRange.Cells[i, 2].Value2.ToString() + ".json";
+                            string path = @"QuanHuyen/" + xlRange.Cells[i, 2].Value2.ToString() + "";
                             writeToFileWithUTF8(path, firstContent+" "+jsonHuyen);
                         }
                         else
                         {
-                            string path = @"QuanHuyen/" + xlRange.Cells[i, 2].Value2.ToString() + ".json";
+                            string path = @"QuanHuyen/" + xlRange.Cells[i, 2].Value2.ToString() + "";
                             writeToFileWithUTF8(path, ","+jsonHuyen);
                         }
                     }
@@ -111,22 +111,22 @@ namespace CreateDB64TinhThanhFromExcel
 
                         //Dong file xa cu
                         if (preMaHuyen != xlRange.Cells[i, 4].Value2.ToString())
-                            writeToFileWithUTF8(@"XaPhuong/" + preMaHuyen + ".json", lastContent);
+                            writeToFileWithUTF8(@"XaPhuong/" + preMaHuyen + "", lastContent);
 
                         string jsonXa = "{\"id\": \"" + xlRange.Cells[i, 6].Value2.ToString()
                             + "\", \"title\":\"" + xlRange.Cells[i, 5].Value2.ToString() + "\", \"idTinh\":\"" +
                             xlRange.Cells[i, 2].Value2.ToString() + "\", \"idHuyen\":\""+
                             xlRange.Cells[i, 4].Value2.ToString() + "\"}";
-                        //Append to file PhuongXa/xlRange.Cells[i, 4].Value2.ToString().json
+                        //Append to file PhuongXa/xlRange.Cells[i, 4].Value2.ToString()
                         //MessageBox.Show(jsonXa);
                         if (preMaHuyen != xlRange.Cells[i, 4].Value2.ToString())//Neu la xa dau tien cua huyen
                         {
-                            string path = @"XaPhuong/" + xlRange.Cells[i, 4].Value2.ToString() + ".json";
+                            string path = @"XaPhuong/" + xlRange.Cells[i, 4].Value2.ToString() + "";
                             writeToFileWithUTF8(path, firstContent+" "+jsonXa);
                         }
                         else
                         {
-                            string path = @"XaPhuong/" + xlRange.Cells[i, 4].Value2.ToString() + ".json";
+                            string path = @"XaPhuong/" + xlRange.Cells[i, 4].Value2.ToString() + "";
                             writeToFileWithUTF8(path, "," + jsonXa);
                         }
 
@@ -141,9 +141,9 @@ namespace CreateDB64TinhThanhFromExcel
                 } 
             }
 
-            writeToFileWithUTF8("tinh.json", lastContent);
-            writeToFileWithUTF8(@"QuanHuyen/" + preMaTinh + ".json", lastContent);
-            writeToFileWithUTF8(@"XaPhuong/" + preMaHuyen + ".json", lastContent);
+            writeToFileWithUTF8("tinh", lastContent);
+            writeToFileWithUTF8(@"QuanHuyen/" + preMaTinh + "", lastContent);
+            writeToFileWithUTF8(@"XaPhuong/" + preMaHuyen + "", lastContent);
 
             Invoke(new MethodInvoker(() => {
                 MessageBox.Show("Done!");
@@ -156,13 +156,18 @@ namespace CreateDB64TinhThanhFromExcel
         //FILE
         private void writeToFileWithUTF8(string filePath, string txt)
         {
-            using (FileStream fs = new FileStream(filePath, FileMode.Append))
+            try
             {
-                using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
+                using (FileStream fs = new FileStream(filePath, FileMode.Append))
                 {
-                    writer.WriteLine(txt);
+                    using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
+                    {
+                        writer.WriteLine(txt);
+                    }
                 }
             }
+            catch { }
+            
         }
     }
 }
