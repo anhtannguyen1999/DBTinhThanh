@@ -7,3 +7,6 @@ F:\ThayTuong2\Tools\CreateDB64TinhThanhFromExcel\CreateDB64TinhThanhFromExcel\ob
 F:\ThayTuong2\Tools\CreateDB64TinhThanhFromExcel\CreateDB64TinhThanhFromExcel\obj\Debug\CreateDB64TinhThanhFromExcel.csproj.GenerateResource.Cache
 F:\ThayTuong2\Tools\CreateDB64TinhThanhFromExcel\CreateDB64TinhThanhFromExcel\obj\Debug\CreateDB64TinhThanhFromExcel.exe
 F:\ThayTuong2\Tools\CreateDB64TinhThanhFromExcel\CreateDB64TinhThanhFromExcel\obj\Debug\CreateDB64TinhThanhFromExcel.pdb
+F:\ThayTuong2\DBTinhThanh\Tools\CreateDB64TinhThanhFromExcel\bin\Debug\CreateDB64TinhThanhFromExcel.exe.config
+F:\ThayTuong2\DBTinhThanh\Tools\CreateDB64TinhThanhFromExcel\obj\Debug\CreateDB64TinhThanhFromExcel.exe
+F:\ThayTuong2\DBTinhThanh\Tools\CreateDB64TinhThanhFromExcel\obj\Debug\CreateDB64TinhThanhFromExcel.pdb
