@@ -162,11 +162,47 @@ namespace CreateDB64TinhThanhFromExcel
                 {
                     using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
                     {
-                        writer.WriteLine(txt);
+                        writer.Write(txt);
+                        //writer.WriteLine(txt);
                     }
                 }
             }
             catch { }
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(@"F:\ThayTuong2\DBTinhThanh\JsonDB\QuanHuyen") || !Directory.Exists(@"F:\ThayTuong2\DBTinhThanh\JsonDB\XaPhuong"))
+            {
+                MessageBox.Show(@"Input chua co \n F:\ThayTuong2\DBTinhThanh\JsonDB\QuanHuyen");
+                return;
+         
+            }
+            else
+            {
+                foreach(String filePath in Directory.GetFiles(@"F:\ThayTuong2\DBTinhThanh\JsonDB\QuanHuyen"))
+                {
+                    string line = "";
+                    System.IO.StreamReader file = new System.IO.StreamReader(filePath);
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        writeToFileWithUTF8(filePath+"_new",line);
+                    }
+                    file.Close();
+                }
+                foreach (String filePath in Directory.GetFiles(@"F:\ThayTuong2\DBTinhThanh\JsonDB\XaPhuong"))
+                {
+                    string line = "";
+                    System.IO.StreamReader file = new System.IO.StreamReader(filePath);
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        writeToFileWithUTF8(filePath + "_new", line);
+                    }
+                    file.Close();
+                }
+                MessageBox.Show("Done!");
+            }
             
         }
     }
