@@ -205,5 +205,31 @@ namespace CreateDB64TinhThanhFromExcel
             }
             
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var files = Directory.GetFiles(@"F:\ThayTuong2\DBTinhThanh\JsonDB\XaPhuong");
+            var utf8WithoutBOM = new System.Text.UTF8Encoding(false);
+            foreach (var file in files)
+            {
+                File.SetAttributes(file, FileAttributes.Normal);
+                var content = File.ReadAllLines(file);
+                Console.WriteLine("Converting the file '" + file + "'...");
+                System.IO.File.WriteAllLines(file, content, utf8WithoutBOM);
+                Console.WriteLine(file + " Converted");
+            }
+
+            files = Directory.GetFiles(@"F:\ThayTuong2\DBTinhThanh\JsonDB\QuanHuyen");
+            foreach (var file in files)
+            {
+                File.SetAttributes(file, FileAttributes.Normal);
+                var content = File.ReadAllLines(file);
+                Console.WriteLine("Converting the file '" + file + "'...");
+                System.IO.File.WriteAllLines(file, content, utf8WithoutBOM);
+                Console.WriteLine(file + " Converted");
+            }
+
+            MessageBox.Show("Done!");
+        }
     }
 }
